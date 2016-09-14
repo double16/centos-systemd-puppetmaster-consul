@@ -8,23 +8,21 @@ ENV container=docker PUPPETDB_TERMINUS_VERSION="4.2.0" PUPPET_SERVER_VERSION="2.
 RUN groupadd consul && \
     useradd -r -g consul consul
 
-
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*; \
-rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm && \
+    rm -f /lib/systemd/system/multi-user.target.wants/*;\
+    rm -f /etc/systemd/system/*.wants/*;\
+    rm -f /lib/systemd/system/local-fs.target.wants/*; \
+    rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+    rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+    rm -f /lib/systemd/system/basic.target.wants/*;\
+    rm -f /lib/systemd/system/anaconda.target.wants/*; \
+    rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm && \
     yum upgrade -y && \
     yum update -y && \
-    yum install -y wget unzip which
-RUN yum install -y puppetserver-"$PUPPET_SERVER_VERSION" puppetdb-termini-"$PUPPETDB_TERMINUS_VERSION" && \
-    yum clean all
-
-RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 91A6E7F85D05C65630BEF18951852D87348FFC4C B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
+    yum install -y wget unzip which && \
+    yum install -y puppetserver-"$PUPPET_SERVER_VERSION" puppetdb-termini-"$PUPPETDB_TERMINUS_VERSION" && \
+    yum clean all && \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys 91A6E7F85D05C65630BEF18951852D87348FFC4C B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
     mkdir -p /tmp/build && \
     cd /tmp/build && \
     wget https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
