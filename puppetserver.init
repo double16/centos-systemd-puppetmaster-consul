@@ -1,0 +1,42 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          puppetserver
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON=/opt/puppetlabs/bin/puppetserver
+PIDFILE=/var/run/puppetserver.pid
+
+test -x $DAEMON || exit 0
+
+case "$1" in
+  start)
+	logger -t puppetserver "Starting Puppet Server"
+        chown -R puppet:puppet /etc/puppetlabs/puppet/ssl
+
+        if test -n "${PUPPETDB_SERVER_URLS}" ; then
+          sed -i "s@^server_urls.*@server_urls = ${PUPPETDB_SERVER_URLS}@" /etc/puppetlabs/puppet/puppetdb.conf
+        fi
+
+        ${DAEMON} foreground &
+        echo $! > ${PIDFILE}
+    ;;
+  stop)
+	logger -t puppetserver "Stopping Puppet Server"
+        kill $(cat ${PIDFILE})
+    ;;
+  force-reload|restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|force-reload|status}"
+    exit 1
+    ;;
+esac
+
+exit 0
+
+
