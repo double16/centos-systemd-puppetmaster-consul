@@ -1,6 +1,8 @@
 # centos-systemd-puppetmaster-consul
 Container running CentOS, systemd, Puppet master and Consul
 
+[![](https://images.microbadger.com/badges/image/pdouble16/centos-systemd-puppetmaster-consul.svg)](http://microbadger.com/images/pdouble16/centos-systemd-puppetmaster-consul "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/image/pdouble16/centos-systemd-puppetmaster-consul.svg)](http://microbadger.com/images/pdouble16/centos-systemd-puppetmaster-consul "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/image/pdouble16/centos-systemd-puppetmaster-consul.svg)](http://microbadger.com/images/pdouble16/centos-systemd-puppetmaster-consul "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/image/pdouble16/centos-systemd-puppetmaster-consul.svg)](http://microbadger.com/images/pdouble16/centos-systemd-puppetmaster-consul "Get your own image badge on microbadger.com")
+
 Bits taken from:
 * https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7
 * https://github.com/puppetlabs/puppet-in-docker/blob/master/puppetserver-standalone
