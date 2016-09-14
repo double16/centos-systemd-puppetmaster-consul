@@ -2,7 +2,7 @@ FROM centos:7
 MAINTAINER Patrick Double <pat@patdouble.com> (@double16)
 
 ARG BUILD_DATE
-ARG GIT_SHA1
+ARG SOURCE_COMMIT
 ARG DOCKERFILE_PATH
 ARG SOURCE_URL
 ARG SOURCE_TYPE
@@ -14,7 +14,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.license="Apache-2.0" \
       org.label-schema.name="Base for testing with CentOS 7 + systemd + puppet master $PUPPET_SERVER_VERSION + consul $CONSUL_VERSION" \
       org.label-schema.url="$SOURCE_URL" \
-      org.label-schema.vcs-ref=$GIT_SHA1 \
+      org.label-schema.vcs-ref=$SOURCE_COMMIT \
       org.label-schema.vcs-type="$SOURCE_TYPE" \
       org.label-schema.vcs-url="$SOURCE_URL"
 
