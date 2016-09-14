@@ -1,7 +1,22 @@
 FROM centos:7
 MAINTAINER Patrick Double <pat@patdouble.com> (@double16)
 
+ARG BUILD_DATE
+ARG GIT_SHA1
+ARG DOCKERFILE_PATH
+ARG SOURCE_URL
+ARG SOURCE_TYPE
+
 ENV container=docker PUPPETDB_TERMINUS_VERSION="4.2.0" PUPPET_SERVER_VERSION="2.6.0" CONSUL_VERSION="0.6.4" PUPPETSERVER_JAVA_ARGS="-Xms256m -Xmx256m" PATH=/opt/puppetlabs/server/bin:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/bin:$PATH
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.docker.dockerfile="$DOCKERFILE_PATH/Dockerfile" \
+      org.label-schema.license="Apache-2.0" \
+      org.label-schema.name="Base for testing with CentOS 7 + systemd + puppet master $PUPPET_SERVER_VERSION + consul $CONSUL_VERSION" \
+      org.label-schema.url="$SOURCE_URL" \
+      org.label-schema.vcs-ref=$GIT_SHA1 \
+      org.label-schema.vcs-type="$SOURCE_TYPE" \
+      org.label-schema.vcs-url="$SOURCE_URL"
 
 # Create a consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
